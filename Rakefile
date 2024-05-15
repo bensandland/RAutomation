@@ -11,15 +11,14 @@ namespace :compile do
   ]
 
   compile_tasks.each do |compile_task|
-    full_ext_path = "ext/#{compile_task[:path]}/Release/#{compile_task[:path]}.#{compile_task[:ext]}"
-
-    %w[x86Release x64Release].each do |output_dir|
-      full_ext_path = full_ext_path.gsub(/(?<!x86|x64)Release/, output_dir) unless compile_task[:name] == :windows_forms
-      RAutomation::Adapter::Helper.build_solution(full_ext_path)
-    end
-
     desc "Compile #{compile_task[:path]}"
-    task compile_task[:name] => full_ext_path
+    task compile_task[:name] do
+      full_ext_path = "ext/#{compile_task[:path]}/Release/#{compile_task[:path]}.#{compile_task[:ext]}"
+      %w[x86Release x64Release].each do |output_dir|
+        ext_path = full_ext_path.gsub(/(?<!x86|x64)Release/, output_dir) unless compile_task[:name] == :windows_forms
+        RAutomation::Adapter::Helper.build_solution(ext_path)
+      end
+    end
   end
 
   desc "Compile all external dependencies"
