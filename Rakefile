@@ -72,6 +72,4 @@ task :default => "spec:all"
 
 task "release:source_control_push" => :spec
 
-task :release => %w[compile:all build:all]
-
 task :install => :build
