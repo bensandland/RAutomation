@@ -3,6 +3,8 @@ require 'bundler'
 require 'rspec/core/rake_task'
 require File.expand_path('../lib/rautomation/adapter/helper', __FILE__)
 
+Bundler::GemHelper.install_tasks
+
 namespace :compile do
   compile_tasks = [
     {:name => :uia_dll, :path => "UiaDll", :ext => "dll"},
